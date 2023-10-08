@@ -1,2 +1,21 @@
-package se331.lab.rest.entity;public class OrganizerDTO {
+package se331.lab.rest.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrganizerDTO {
+    Long id;
+    String name;
+    @Builder.Default
+    List<OrganizerOwnEventsDTO> ownEvents = new ArrayList<>();
+
 }

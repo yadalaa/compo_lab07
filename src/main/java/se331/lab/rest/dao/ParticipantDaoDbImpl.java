@@ -1,2 +1,4 @@
-package se331.lab.rest.dao;public class ParticipantDaoDbImpl {
+package se331.lab.rest.dao;
+
+public class ParticipantDaoDbImpl {
 }
