@@ -6,6 +6,7 @@ import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.*;
+import se331.lab.rest.security.user.User;
 
 @Data
 @Builder
@@ -21,4 +22,6 @@ public class Organizer {
     @OneToMany(mappedBy = "organizer")
     @Builder.Default
     List<Event> ownEvents = new ArrayList<>();
+    @OneToOne
+    User user;
 }
