@@ -3,8 +3,9 @@ name: Deploy to Aws Docker on merge prod
   push:
     branches:
       - prod
+
 jobs:
-  docker: 
+  docker:
     runs-on: ubuntu-latest
     steps:
       -
@@ -23,7 +24,7 @@ jobs:
           mkdir -p target/dependency && (cd target/dependency; unzip ../*.jar)
       -
         name: Set up QEMU
-        users: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v2
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -36,19 +37,19 @@ jobs:
       -
         name: Build and push
         uses: docker/build-push-action@v4
-        with: 
+        with:
           context: .
           push: true
           tags: yadala/se331-backend:latest
       -
         name: copy file via ssh password
         uses: appleboy/scp-action@v0.1.4
-        with: 
+        with:
           host: ${{ secrets.HOST_SERVER }}
           username: ${{ secrets.HOST_USER_NAME }}
           key: ${{ secrets.HOST_SSH_PRIVATE_KEY }}
           port: 22
-          source: "docker-compose-prod.yml"
+          source: "docker-compose-pros.yml"
           target: "/home/ubuntu/backend"
       -
         name: docker compose
@@ -60,10 +61,9 @@ jobs:
           port: 22
           script: |
             cd /home/ubuntu/backend
-            echo ${{ secrets.DOCKER_HUB_USERNAME }} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+            echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
             mv docker-compose-prod.yml docker-compose.yml
             docker compose down
             docker compose pull
             docker compose up -d
-            rm -rf /home/ubuntu/backend
-
+            rm -rf /home ubuntu backend
