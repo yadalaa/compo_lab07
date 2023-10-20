@@ -20,7 +20,7 @@ public class Application {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://3.83.214.5:8001")
+                        .allowedOrigins("http://54.208.68.207:8001")
                         .exposedHeaders("x-total-count");
 
 
